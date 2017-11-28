@@ -1,0 +1,7 @@
+SampleID,Tissue,Condition,Replicate,bamReads,Peaks,PeakCaller,PeakFormat
+S1_colon,Tumor,colon,1,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/TAAGGCGA_S1_L008_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/TAAGGCGA_S1_L008_R1_001_peaks.broadPeak,MACS2,bed
+S4_colon,Tumor,colon,2,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/CTCTCTAC_S4_L008_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/CTCTCTAC_S4_L008_R1_001_peaks.broadPeak,MACS2,bed
+S7_colon,Tumor,colon,4,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/LW-L7_S1_L001_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/LW-L7_S1_L001_R1_001_peaks.broadPeak,MACS2,bed
+S2_liver,Tumor,liver,1,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/CGTACTAG_S2_L008_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/CGTACTAG_S2_L008_R1_001_peaks.broadPeak,MACS2,bed
+S3_liver,Tumor,liver,2,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/GGACTCCT_S3_L008_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/GGACTCCT_S3_L008_R1_001_peaks.broadPeak,MACS2,bed
+S8_liver,Tumor,liver,4,/Users/dohlman/Documents/Lihua_ATACSeq/rmdupMtUn/LW-L8_S2_L001_R1_001.sorted.rmdupMtUn.bam,/Users/dohlman/Documents/Lihua_ATACSeq/macs2/LW-L8_S2_L001_R1_001_peaks.broadPeak,MACS2,bed

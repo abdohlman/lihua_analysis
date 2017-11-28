@@ -1,0 +1,40 @@
+trim_galore $filename --output_dir ./trim
+##Step 1: Quality Trimming
+In the first step, low-quality base calls are trimmed off from the 3' end of the reads before adapter removal. This efficiently removes poor quality portions of the reads.
+##Step 2: Adapter Trimming
+In the next step, Cutadapt finds and removes adapter sequences from the 3’ end of reads. If no sequence was supplied it will attempt to auto-detect the adapter which has been used. 
+##Step 3: Removing Short Sequences
+Lastly, since quality and/or adapter trimming may result in very short sequences (sometimes as short as 0 bp), Trim Galore! can filter trimmed reads based on their sequence length (default: 20 bp). This is to reduce the size of the output file and to avoid crashes of alignment programs which require sequences with a certain minimum length.
+##pretty neat way of get only sequencing data
+
+bowtie2 -p 8 --very-sensitive -x $ref_genome -U ./trim/${basename}_trimmed.fq -S ./${basename}.sam &> ./${basename}.sam.info
+## the -p means bowtie 2 to launch a specified number of parallel search threads. Each thread runs on a different processor/core and all threads find ligaments in parallel. Inc reading alignment throughout by approximately a multiple of the number of threads.
+## —very-sensitive option is the same as running with options: -D 20 -R 3 -N 0 -L 20 -i S,1,0.50.
+	-D, which puts an upper limit on the number of dynamic programming problems (i.e. seed extensions) that can "fail" in a row before Bowtie 2 stops searching. Increasing -D makes Bowtie 2 slower, but increases the likelihood that it will report the correct alignment for a read that aligns many places.
+
+	-R, which sets the maximum number of times Bowtie 2 will "re-seed" when attempting to align a read with repetitive seeds. Increasing -R makes Bowtie 2 slower, but increases the likelihood that it will report the correct alignment for a read that aligns many places.
+
+	-N, which is the number of mismatches permitted per seed
+	-L, sets the length of the seed substrings to align during multiseed alignment
+	-Since it's best to use longer intervals for longer reads, this parameter sets the interval as a function of the read length, rather than a single one-size-fits-all number. For instance, specifying -i S,1,2.5 sets the interval function f to f(x) = 1 + 2.5 * sqrt(x), where x is the read length.
+##-x <bt2-idx> The basename of the index for the reference genome.
+##-U <r>
+Comma-separated list of files containing unpaired reads to be aligned, e.g. 
+##-S <sam> File to write SAM alignments to.
+##????????? what is sam.info doing 
+
+samtools idxstats ./rmdupMtUn/${basename}.sorted.rmdup.bam | cut -f 1 | grep -v _random | grep -v chrM | grep chr | xargs samtools view -b ./rmdupMtUn/${basename}.sorted.rmdup.bam > ./rmdupMtUn/${basename}.sorted.rmdupMtUn.bam
+	samtools index ./rmdupMtUn/${basename}.sorted.rmdupMtUn.bam
+##samtools idxstats. =>The output is TAB-delimited with each line consisting of reference sequence name, sequence length, # mapped reads and # unmapped reads. It is written to stdout.
+##=> cut -f 1 get rid of the trailing
+##=> grep -v _random is the select the lines that do not contain _random
+##=> xargs pass in what  | | feed in
+
+
+
+################################
+# Links                        #
+################################
+https://github.com/taoliu/MACS ==> for MACS2
+http://www.htslib.org/doc/samtools.html  ==> for samtools2
+http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#multiseed-heuristic ==> for Bowtie2

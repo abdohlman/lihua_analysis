@@ -1,0 +1,9 @@
+SampleID,Tissue,Condition,Replicate,bamReads,Peaks,PeakCaller,PeakFormat
+S2_liver,Tumor,liver,1,../rmdupMtUn/CGTACTAG_S2_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/CGTACTAG_S2_L008_R1_001_peaks.broadPeak,MACS2,bed
+S3_liver,Tumor,liver,2,../rmdupMtUn/GGACTCCT_S3_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/GGACTCCT_S3_L008_R1_001_peaks.broadPeak,MACS2,bed
+S5_liver,Tumor,liver,3,../rmdupMtUn/TAGGCATG_S5_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/TAGGCATG_S5_L008_R1_001_peaks.broadPeak,MACS2,bed
+S8_liver,Tumor,liver,4,../rmdupMtUn/LW-L8_S2_L001_R1_001.sorted.rmdupMtUn.bam,../macs2/LW-L8_S2_L001_R1_001_peaks.broadPeak,MACS2,bed
+S1_colon,Tumor,colon,1,../rmdupMtUn/TAAGGCGA_S1_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/TAAGGCGA_S1_L008_R1_001_peaks.broadPeak,MACS2,bed
+S4_colon,Tumor,colon,2,../rmdupMtUn/CTCTCTAC_S4_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/CTCTCTAC_S4_L008_R1_001_peaks.broadPeak,MACS2,bed
+S6_colon,Tumor,colon,3,../rmdupMtUn/CAGAGAGG_S6_L008_R1_001.sorted.rmdupMtUn.bam,../macs2/CAGAGAGG_S6_L008_R1_001_peaks.broadPeak,MACS2,bed
+S7_colon,Tumor,colon,4,../rmdupMtUn/LW-L7_S1_L001_R1_001.sorted.rmdupMtUn.bam,../macs2/LW-L7_S1_L001_R1_001_peaks.broadPeak,MACS2,bed

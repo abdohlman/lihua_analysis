@@ -1,0 +1,8 @@
+1. setwd in the rundiffbin.R is changed
+2. Change the bamRead route in the atac.sampletable.3pairs.csv file
+3. mkdir /gpfe/fs0/home/ew152/Rlibs
+4. Add .libPaths( c( .libPaths(), "/gpfs/fs0/home/ew152/Rlibs") ) in front of the rundiffbind.R
+5. Module load R
+6. In R type
+source("https://bioconductor.org/biocLite.R")
+biocLite(“DiffBind”, lib.loc = "/gpfs/fs0/home/ew152/Rlibs", lib="/gpfs/fs0/home/ew152/Rlibs")
