@@ -44,11 +44,11 @@ for (filename in filelist) {
   dev.off()
   
   pdf(paste('figures/HEATMAP',samplename,'rpkm','pdf',sep='.'))
-  dba.plotHeatmap(atac.analyze,attributes = DBA_CONDITION,score = DBA_SCORE_RPKM)
+  dba.plotHeatmap(atac.analyze,score = DBA_SCORE_RPKM)
   dev.off()
   
   pdf(paste('figures/HEATMAP',samplename,'summit','pdf',sep='.'))
-  dba.plotHeatmap(atac.analyze,attributes = DBA_CONDITION,score = DBA_SCORE_SUMMIT)
+  dba.plotHeatmap(atac.analyze,score = DBA_SCORE_SUMMIT)
   dev.off()
   
   
