@@ -1,36 +1,24 @@
 library(DiffBind)
 library(rtracklayer)
 library(ggplot2)
-#setwd("/Volumes/ShenLabData/Data/HighThroughput/LiHua/ATAC_2017Sep/diffbind/")
 setwd("/Users/ergangwang/Downloads/Lihua_ATACSeq/seq2_analysis/")
-#load("DiffBind.total.3pairs.allmethods.RData")
 
-# filelist <- c("DiffBind.total.no1.allmethods.RData",
-#               "DiffBind.total.no2.allmethods.RData",
-#               "DiffBind.total.no3.allmethods.RData",
-#               "DiffBind.total.no4.allmethods.RData",
-#               "DiffBind.total.allsamples.allmethods.RData")
+filelist <- c("DiffBind.total.2356livercolon.allmethods.RData",
+               "DiffBind.total.1256livercolon.allmethods.RData",
+               "DiffBind.total.12356livercolon.allmethods.RData",
+               "DiffBind.total.236livercolon.allmethods.RData",
+               "DiffBind.total.126livercolon.allmethods.RData")
 ###################################################
 #if do liver.colon  need to change the ylab below
 ###################################################
-filelist <- c("DiffBind.total.liver.allmethods.RData")
 
 methods <- c(DBA_DESEQ2,
              DBA_DESEQ2_BLOCK,
              DBA_EDGER,
              DBA_EDGER_BLOCK)
 
-# methods <- c(atac.DB.DESEQ2BLOCK,
-#              atac.DB.DESEQ2BLOCK,
-#              atac.DB.EDGER,
-#              atac.DB.EDGERBLOCK)
-
-# PCA
-# pdf('figures/PCA.DESEQ.RPKM.pdf')
-# par(mfrow=c(4,4))
-
 for (filename in filelist) {
-
+  
   rm(list = ls(pattern = "^atac"))
   load(filename)
   samplename <- strsplit(filename, ".", fixed=TRUE)[[1]][3]
@@ -38,19 +26,23 @@ for (filename in filelist) {
   pdf(paste('figures/PCA',samplename,'rpkm','pdf',sep='.'))
   dba.plotPCA(atac.analyze, DBA_CONDITION, label = DBA_REPLICATE, attributes = DBA_CONDITION,score = DBA_SCORE_RPKM)
   dev.off()
-  
-  pdf(paste('figures/PCA',samplename,'summit', 'pdf',sep='.'))
-  dba.plotPCA(atac.analyze, DBA_CONDITION, label = DBA_REPLICATE, attributes = DBA_CONDITION,score = DBA_SCORE_SUMMIT)
+  pdf(paste('figures/PCA',samplename,'summit_ADJ', 'pdf',sep='.'))
+  dba.plotPCA(atac.analyze, DBA_CONDITION, label = DBA_REPLICATE, attributes = DBA_CONDITION,score = DBA_SCORE_SUMMIT_ADJ)
   dev.off()
-  
   pdf(paste('figures/HEATMAP',samplename,'rpkm','pdf',sep='.'))
   dba.plotHeatmap(atac.analyze,score = DBA_SCORE_RPKM)
   dev.off()
-  
-  pdf(paste('figures/HEATMAP',samplename,'summit','pdf',sep='.'))
-  dba.plotHeatmap(atac.analyze,score = DBA_SCORE_SUMMIT)
+  pdf(paste('figures/HEATMAP',samplename,'summit_ADJ','pdf',sep='.'))
+  dba.plotHeatmap(atac.analyze,score = DBA_SCORE_SUMMIT_ADJ)
   dev.off()
   
+  pdf(paste('figures/MAcheck',samplename,'DESeq2b_EdgeRb','pdf',sep='.'))
+  par(mfrow=c(2,2)) 
+  dba.plotMA(atac.analyze, th=0,  bNormalized=FALSE)
+  dba.plotMA(atac.analyze, method=DBA_DESEQ2_BLOCK)
+  dba.plotMA(atac.analyze, method=DBA_DESEQ2_BLOCK, bNormalized = FALSE)
+  dba.plotMA(atac.analyze, method=DBA_EDGER_BLOCK)
+  dev.off()
   
   for (method in methods) {
     
@@ -67,13 +59,11 @@ for (filename in filelist) {
                      pval=anadata$p.value,
                      FDR=anadata$FDR,
                      Fold=anadata$Fold,
-                     ave=anadata$Conc
-    )
-
+                     ave=anadata$Conc)
     df$sign<-"0"
     df$sign[df$pval<=0.05 & df$Fold >= 1.0]<-  "1"
     df$sign[df$pval<=0.05 & df$Fold <= -1.0]<- "-1"
-
+    
     p <- ggplot(data = df) +
       geom_point(shape=21,aes(x=ave,y=Fold,fill=sign,alpha=sign),color="grey90",size=2)+
       scale_fill_manual(values = c("1"="orangered3","0"="grey60","-1"="navyblue"))+
@@ -84,10 +74,6 @@ for (filename in filelist) {
       theme(aspect.ratio = 0.5)
     
     ggsave(paste('figures/MAPLOT',samplename,method,'pdf',sep='.'), plot = p, width = 8, height = 5)
-    
-    # total.df<-df
-    # total.df[4]<-rownames(total.df)
-
     pos_df<-df[df$sign=="1",]
     neg_df<-df[df$sign=="-1",]
     
